@@ -10,13 +10,36 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.Navigation
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
+import com.paparazziteam.coffee4coders.ui.screens.DetailScreen
+import com.paparazziteam.coffee4coders.ui.screens.FeedScreen
 import com.paparazziteam.coffee4coders.ui.theme.Coffee4CodersTheme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            Text(text = "Welcome to Coffee4Coders")
+           NavigationHost()
+        }
+    }
+}
+
+@Composable
+fun NavigationHost() {
+    val navController = rememberNavController()
+    Coffee4CodersTheme() {
+        Surface(color = MaterialTheme.colors.background) {
+            NavHost(navController = navController, startDestination = "feed") {
+                composable(route = "feed") {
+                    FeedScreen(navController = navController)
+                }
+                composable(route = "detail") {
+                    DetailScreen()
+                }
+            }
         }
     }
 }

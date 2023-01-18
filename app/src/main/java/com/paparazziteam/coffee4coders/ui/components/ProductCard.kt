@@ -21,18 +21,23 @@ import com.paparazziteam.coffee4coders.ui.theme.PlatziBlue
 import com.paparazziteam.coffee4coders.ui.theme.PlatziGreen
 import java.util.Currency
 
+
+typealias setOnProductClickListener = (String) -> Unit
+
 @Composable
 fun ProductCard(name:String,
                 summary:String,
                 price:Double,
                 currency: String,
                 countryISO: CountryISO,
-                onClick:()->Unit) {
+                onClick:setOnProductClickListener){
     Card(
         modifier = Modifier
             .fillMaxWidth()
             .padding(16.dp)
-            .clickable { }
+            .clickable {
+                onClick(name)
+            }
             .size(480.dp),
         elevation = 10.dp,
         shape = MaterialTheme.shapes.small // RoundedCornerShape(4.dp)
